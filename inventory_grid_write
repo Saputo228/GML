@@ -13,7 +13,7 @@ for (var _y=0; _y<_height; _y++) {
 		var _item_name = object_get_name(_item.object_index);
 		_item_map[? "name"] = _item_name;
 		_item_map[? "amount"] = _item.amount_;
-		ini_write_string(_section, _item_name, json_encode(_item_map));
+		ini_write_string(_section, string(_x)+","+string(_y), json_encode(_item_map));
 		ds_map_destroy(_item_map);
 	}
 }
