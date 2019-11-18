@@ -1,0 +1,31 @@
+///@arg Section
+///@arg Name
+///@arg defualt
+var _section = argument0;
+var _name = argument1;
+var _default = argument2;
+
+var _width = ds_grid_width(global.inventory);
+var _height = ds_grid_height(global.inventory);
+var _grid = ds_grid_create(_width, _height);
+var _inventory_string = ini_read_string(_section, _name, _default);
+ds_grid_read(_grid, _inventory_string);
+for (var _y=0; _y<_height; _y++) {
+    for (var _x=0; _x<_width; _x++) {
+        var _name = _grid[# _x, _y];
+        if (_name != noone)
+            global.inventory[# _x, _y] = singleton(asset_get_index(_name));
+        else
+            global.inventory[# _x, _y] = noone;
+    }
+		for (var _y=0; _y<_height; _y++) {
+	    for (var _x=0; _x<_width; _x++) {
+	        var _item = _grid[# _x, _y];
+	        if (_item != noone)
+	           //ini_read_string(_section, _name, _item.amount_);
+			   ds_grid_read(_item, _item.amount_);
+	        else
+	            _item.amount_ = "0";
+	    }
+	}
+}
