@@ -10,13 +10,14 @@ var _height = ds_grid_height(global.inventory);
 for (var _y=0; _y<_height; _y++) {
     for (var _x=0; _x<_width; _x++) {
     	var _item_string = ini_read_string(_section, string(_x)+","+string(_y), "");
-        if (_item_string != "") {
-			var _item_map = json_decode(_item_string);
-			var _item = singleton(asset_get_index(_item_map[? "name"]));
-			_grid[# _x, _y] = _item;
-			_item.amount_ = _item_map[? "amount"];
+	var _item_map = json_decode(_item_string)
+        if _item_map {
+		var _item_map = json_decode(_item_string);
+		var _item = singleton(asset_get_index(_item_map[? "name"]));
+		_grid[# _x, _y] = _item;
+		_item.amount_ = _item_map[? "amount"];
         } else {
             _grid[# _x, _y] = noone;
-		}
+	}
     }
 }
