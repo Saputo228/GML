@@ -4,27 +4,21 @@ var _grid = argument2;
 
 var _width = ds_grid_width(_grid);
 var _height = ds_grid_height(_grid);
-var _name_grid = ds_grid_create(_width, _height);
+var _item_grid = ds_grid_create(_width, _height);
 ds_grid_clear(_name_grid, noone);
 
 for (var _y=0; _y<_height; _y++) {
-    for (var _x=0; _x<_width; _x++) {
-        var _item = _grid[# _x, _y];
-        if (_item == noone) continue;
-        _name_grid[# _x, _y] = object_get_name(_item.object_index);
-	    }
-	for (var _y=0; _y<_height; _y++) {
-	    for (var _x=0; _x<_width; _x++) {
-	        var _item = _grid[# _x, _y];
-			if (_item == noone) continue;
-	        if (_item == _item) {
-				//ini_write_string(_section, _name, _item.amount_);
-				ds_grid_write(_item.amount_);
-			}
-		}
+	for (var _x=0; _x<_width; _x++) {
+		var _item = _grid[# _x, _y];
+		if (_item == noone) continue;
+		var _item_map = ds_map_create();
+		_item_map[? "name"] = object_get_name(_item.object_index);
+		_item_map[? "amount"] = _item.amount_;
+		_item_grid[# _x, _y] = json_encode(_item_map);
+		ds_map_destroy(_item_map);
 	}
 }
 
-var _inventory_grid_string = ds_grid_write(_name_grid);
+var _inventory_grid_string = json_encode(_item_grid);
 ini_write_string(_section, _name, _inventory_grid_string);
 ds_grid_destroy(_name_grid);
