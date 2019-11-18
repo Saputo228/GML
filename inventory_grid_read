@@ -7,7 +7,6 @@ var _grid = argument2;
 
 var _width = ds_grid_width(global.inventory);
 var _height = ds_grid_height(global.inventory);
-var _inventory_string = ini_read_string(_section, _name, _default);
 for (var _y=0; _y<_height; _y++) {
     for (var _x=0; _x<_width; _x++) {
     	var _item_string = ini_read_string(_section, string(_x)+","+string(_y), noone);
